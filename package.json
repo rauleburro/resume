@@ -1,0 +1,16 @@
+{
+  "name": "resume",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "resume": "md-to-pdf resume.md",
+    "resumeFront": "md-to-pdf resume-frontend.md",
+    "resumeSRE": "md-to-pdf resume-sre.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "md-to-pdf": "^5.2.1"
+  }
+}
