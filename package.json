@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "resume": "md-to-pdf resume.md",
-    "resumeFront": "md-to-pdf resume-frontend.md",
-    "resumeSRE": "md-to-pdf resume-sre.md"
+    "resume": "md-to-pdf resume.md"
   },
   "author": "",
   "license": "ISC",
