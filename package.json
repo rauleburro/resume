@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "resume": "md-to-pdf resume.md",
+    "resume": "md-to-pdf resume.md --config-file config.ts",
     "resume-sre-es": "md-to-pdf resume-sre-es.md"
   },
   "author": "",

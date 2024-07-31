@@ -14,9 +14,9 @@ Nationality: Paraguay/Spain
 
 ## Profile
 
-Software engineer with +8 years on the market, working with frontend and mobile technologies, such as Flutter, React, and React Native, experience deployment productions apps on the AppStore, Google Play Store and cloud, +3 years of experience developing backend apps and deploying on the cloud utilizing digital-ocean, GCP, docker, docker-compose, and Kubernetes. Fast learner and autodidact, proactive, and proficient.
+Software engineer with +9 years on the market, working with frontend and mobile technologies, such as Flutter, React, and React Native, experience deployment productions apps on the AppStore, Google Play Store and cloud, +3 years of experience developing backend apps and deploying on the cloud utilizing digital-ocean, GCP, docker, docker-compose, and Kubernetes. Fast learner and autodidact, proactive, and proficient.
 
-Able to effectively collaborate as part of a productive team, providing reliable solutions to problems, and willing to create a comfortable work environment. I am excited to continue strengthening my career and increasing my skills.
+For the past 5 years, I have specialized in Next.js, developing robust and scalable web applications. Known for effective collaboration within productive teams, delivering reliable solutions to complex problems, and fostering a comfortable work environment. Eager to continue advancing my career and enhancing my skill set.
 
 ## Technologies
 
@@ -34,9 +34,22 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 
 ## Experience
 
+### Frontend Software Engineer
+
+#### 1950Labs | Dec 2023 - Present
+
+- Collaborate with a USA-based client to develop the Caddie project.
+- Utilize Next.js, React, and Redux for frontend development.
+- Implement real-time chat services using PubNub.
+- Develop notification systems with Knock.app.
+- Create a mobile wrapper app using Flutter to display the web application.
+- Integrate the mobile wrapper app with phone services such as notifications and contacts.
+- Deploy and manage the project on AWS Amplify.
+- Organize tasks and collaborate using tools like Asana, Figma, and Slack.
+
 ### FullStack Software Engineer / SRE/DevOps
 
-#### Bucksapp | Sep 2021 - Present
+#### Bucksapp | Sep 2021 - July 2024
 
 - Develop new features for Bucksapp Mobile app written in React Native.
 - Develop a new webapp from scratch using Next.js, React, Redux and Sagas.
