@@ -1,12 +1,12 @@
 # Raúl Esteban Burró Cespedes
 
-Fullstack Software Engineer
+Senior Software Engineer
 
 ---
 
 Email: <rauleburro@gmail.com>
 
-Tel: [+595 981 365257](tel:+595981365257)
+Tel: [+595 981 365257](tel:+595981365257) | [+34 662 538 778](tel:+34662538778)
 
 Nationality: Paraguay/Spain
 
@@ -14,9 +14,11 @@ Nationality: Paraguay/Spain
 
 ## Profile
 
-Software engineer with +9 years on the market, working with frontend and mobile technologies, such as Flutter, React, and React Native, experience deployment productions apps on the AppStore, Google Play Store and cloud, +3 years of experience developing backend apps and deploying on the cloud utilizing digital-ocean, GCP, docker, docker-compose, and Kubernetes. Fast learner and autodidact, proactive, and proficient.
+Senior software engineer with over 9 years of experience in web and mobile development, specializing in building scalable applications using React, React Native, Next.js, and Flutter. Proven track record leading full project cycles — from architecture definition to deployment — in both startup and enterprise environments.
 
-For the past 5 years, I have specialized in Next.js, developing robust and scalable web applications. Known for effective collaboration within productive teams, delivering reliable solutions to complex problems, and fostering a comfortable work environment. Eager to continue advancing my career and enhancing my skill set.
+Strong backend knowledge with Django and Node.js, and skilled in deploying cloud-based infrastructures using GCP, Docker, and Kubernetes. Known for mentoring junior developers, documenting projects thoroughly, and delivering high-quality solutions aligned with business goals.
+
+Currently leading the mobile app development of a global loyalty platform for Hitachi, recognized for high autonomy, ownership, and problem-solving capabilities.
 
 ## Technologies
 
@@ -27,16 +29,30 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 - Making the right choice and having sound knowledge of our tools.
 - Keep the code clean and able to adapt.
 - Great problem solver.
-- Efficient trough optimization
+- Efficient through optimization
 - Aim for success at the start.
 - Self-evaluate along the way
 - Full-cycle software development using Agile methodologies (SCRUM).
 
 ## Experience
 
+### Senior Software Consultant
+
+#### ROI UP (via Oxigent Consulting) | Sep 2024 – Present
+
+- Lead the development of a global loyalty mobile application for Hitachi using React Native with the Expo framework.
+- Defined the full mobile app architecture, choosing core libraries such as Redux Toolkit, Expo Router, Async Storage, and React Native Paper.
+- Mentored and onboarded a junior developer, guiding them from reusable component creation to full screen development.
+- Integrated the app with Strapi 5 (headless CMS) using GraphQL, and implemented JWT-based authentication and role-based authorization.
+- Configured and documented the entire backend structure initially, then handed off to a dedicated backend developer.
+- Created comprehensive documentation in Confluence covering project architecture and component usage.
+- Implemented Storybook to document and preview UI components.
+- Wrote unit, functional, and snapshot tests using Jest and currently working on end-to-end tests using Maestro.
+- Received strong client feedback highlighting autonomy, problem-solving, quality, and leadership within the team.
+
 ### Frontend Software Engineer
 
-#### 1950Labs | Dec 2023 - Present
+#### 1950Labs | Dec 2023 - Sep 2024
 
 - Collaborate with a USA-based client to develop the Caddie project.
 - Utilize Next.js, React, and Redux for frontend development.
@@ -57,52 +73,44 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 - Maintain services written in python django.
 - Develop new services written in python django with django-rest-framework.
 - Maintain the old infrastructure on the Google Cloud Platform.
-- Manage networks, VMS, load balancers, DNS, databases, Redis, and Cloud Run Apps on CGP
-- Create new infrastructures using GKE
+- Manage networks, VMS, load balancers, DNS, databases, Redis, and Cloud Run Apps on GCP.
+- Create new infrastructures using GKE.
 - Implement monitoring using Prometheus, Grafana and Alert manager.
 - Manage the environments for the infrastructure using Kustomize.
-- Implement DevOps using GitHub Actions, GitHub Super Linter, Testing Actions, and Continues Deployment build images on the pipeline.
+- Implement DevOps using GitHub Actions, GitHub Super Linter, Testing Actions, and Continuous Deployment build images on the pipeline.
 
 ### Co-Founder / Fullstack Software Engineer
 
 #### Bellbird | Jan 2020 - Sep 2021
 
-- I founded this company in 2020 to develop technology solutions for our clients.
-- My first client, PuntoFarma, is the most extensive pharmacy in Paraguay. I developed for then a mobile app using flutter 2.0 with null safety, flutter_bloc for state management and connected their oracle backend using an intermediate backend written in node.js using express.js framework. Today the app manages +9k users per day with +70k downloads on Android and +1k on IOs.
-- Develop the backend node on a server using docker and docker-compose. Today the app manages the traffic of +9k users per day.
-- Develop backends using python with django and django-rest-framework.
-- Develop frontends using React, Next.js, Redux, Sagas.
-- Develop Mobile apps using Flutter, React Native, Android and iOS.
-- Implement infrastructure of all the apps with docker and docker-compose.
-- Implement new infrastructure for the company using Kubernetes with Kubeadm
-- Implement CI/CD using Gitlab CI.
+- Founded this company to develop technology solutions for clients.
+- Developed a mobile app for PuntoFarma, Paraguay's largest pharmacy chain, using Flutter 2.0 with null safety and flutter_bloc for state management.
+- Connected their Oracle backend using an intermediate backend written in Node.js with Express.js.
+- Deployed the backend and handled traffic of 9k+ daily users.
+- Developed backends using Python with Django and Django Rest Framework.
+- Developed frontends using React, Next.js, Redux, and Sagas.
+- Built mobile apps using Flutter, React Native, Android, and iOS.
+- Implemented infrastructure using Docker and Docker Compose.
+- Built new infrastructure using Kubernetes with Kubeadm.
+- Set up CI/CD pipelines using GitLab CI.
 
 ### Fullstack Software Engineer / Tech Lead
 
 #### Softec SRL | Sep 2016 - Jan 2020
 
-- Develop FullStack apps with Django and Javascript.
-- Implement testing with Selenium.
-- Develop Mobile apps with Android and iOS
-- Develop Webapps with Angular.
-- In 2017, I started working on an Uber-like app called MUV with two Android apps, one for drivers and one for clients, and two apps IOS with swift. And a backend in PHP/Laravel.
-- Lead a team of 3 developers until the app's release in 2018.
-- In 2018, after the app's release, my team started working on version 2 of the app MUV. We used React Native for the app, React for the front, and Node for the backend.
-- First touch implementing deployments for kubernetes on GKE.
-- Develop Frontend with React, Redux, Sagas.
-- Develop Backend with Node, ExpressJs.
-- Develop Mobile apps using React Native redux and sagas.
-- After that, in 2019, I was promoted to Tech Lead of the company and started to manage four teams with different skills using Gitlab workflow.
-- Develop Mobile apps with Flutter, flutter_bloc.
-- Deploy apps with Docker and docker-compose on Digital Ocean.
+- Developed fullstack apps with Django and JavaScript.
+- Built mobile apps for Android and iOS.
+- Developed Uber-like ride-hailing app MUV using Android/iOS/React Native and Node.js backend.
+- Led a team of 3 developers and later managed 4 teams after being promoted to Tech Lead.
+- Implemented CI/CD pipelines and deployed apps using Docker, Kubernetes on GKE.
 
 ### FullStack Software Engineer
 
 #### Freelance | Jan 2012 - Sep 2016
 
-- Develop websites using HTML5/CCS3/JS.
-- Develop WebApps using Python Django, Django Rest Framework, JQuery and AngularJS.
-- Develop Android Native Mobile apps.
+- Developed websites using HTML5/CSS3/JS.
+- Created web apps with Django, Django Rest Framework, jQuery, and AngularJS.
+- Built native Android applications.
 
 ## Languages
 
