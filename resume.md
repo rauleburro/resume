@@ -6,7 +6,7 @@ Senior Software Engineer
 
 Email: <rauleburro@gmail.com>
 
-Tel: [+595 981 365257](tel:+595981365257) | [+34 662 538 778](tel:+34662538778)
+Tel: (PY) [+595 981 365257](tel:+595981365257) | (ES) [+34 662 538 778](tel:+34662538778)
 
 Nationality: Paraguay/Spain
 
@@ -14,7 +14,7 @@ Nationality: Paraguay/Spain
 
 ## Profile
 
-Senior software engineer with over 9 years of experience in web and mobile development, specializing in building scalable applications using React, React Native, Next.js, and Flutter. Proven track record leading full project cycles — from architecture definition to deployment — in both startup and enterprise environments.
+Senior software engineer with over 10 years of experience in web and mobile development, specializing in building scalable applications using React, React Native, Next.js, and Flutter. Proven track record leading full project cycles — from architecture definition to deployment — in both startup and enterprise environments.
 
 Strong backend knowledge with Django and Node.js, and skilled in deploying cloud-based infrastructures using GCP, Docker, and Kubernetes. Known for mentoring junior developers, documenting projects thoroughly, and delivering high-quality solutions aligned with business goals.
 
@@ -40,15 +40,16 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 
 #### ROI UP (via Oxigent Consulting) | Sep 2024 – Present
 
-- Lead the development of a global loyalty mobile application for Hitachi using React Native with the Expo framework.
-- Defined the full mobile app architecture, choosing core libraries such as Redux Toolkit, Expo Router, Async Storage, and React Native Paper.
-- Mentored and onboarded a junior developer, guiding them from reusable component creation to full screen development.
-- Integrated the app with Strapi 5 (headless CMS) using GraphQL, and implemented JWT-based authentication and role-based authorization.
-- Configured and documented the entire backend structure initially, then handed off to a dedicated backend developer.
-- Created comprehensive documentation in Confluence covering project architecture and component usage.
-- Implemented Storybook to document and preview UI components.
-- Wrote unit, functional, and snapshot tests using Jest and currently working on end-to-end tests using Maestro.
-- Received strong client feedback highlighting autonomy, problem-solving, quality, and leadership within the team.
+- **Senior Developer** leading a global loyalty mobile application for Hitachi using React Native with Expo framework, functioning as the technical reference and primary decision-maker for project direction and technical roadmap.
+- **Project ownership**: Collaborate with PM to define project milestones, coordinate team progress, and serve as the go-to person for project status updates across all stakeholders.
+- **Technical Leadership**: Guide and mentor a React Native development squad, including onboarding junior developers and establishing technical best practices.
+- Architected the complete mobile application from scratch, selecting and implementing core technologies: Redux Toolkit, React Navigation, Apollo Client, Async Storage, and React Native Paper.
+- Integrated backend services using Apollo Client for GraphQL queries and REST API connections, implementing JWT-based authentication and role-based authorization.
+- Implemented Firebase Analytics and Crashlytics for monitoring and crash reporting.
+- Established development workflows including form handling with Formik and Yup validation, and internationalization using i18n-js.
+- Created comprehensive technical documentation and implemented Storybook for component documentation with TypeScript support.
+- Implemented testing strategy with Jest and React Native Testing Library for unit/functional tests, and Maestro for end-to-end testing.
+- **Client Recognition**: Achieved 100% autonomy rating and received exceptional feedback for technical leadership, problem-solving capabilities, and project ownership from client management.
 
 ### Frontend Software Engineer
 

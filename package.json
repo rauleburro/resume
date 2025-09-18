@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "resume": "md-to-pdf resume.md --config-file config.ts",
-    "resume-sre-es": "md-to-pdf resume-sre-es.md"
+    "resume-es": "md-to-pdf resume-es.md --config-file config.ts"
   },
   "author": "",
   "license": "ISC",
