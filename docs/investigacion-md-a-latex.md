@@ -10,10 +10,11 @@
 4. [Conversion de Markdown a LaTeX](#4-conversion-de-markdown-a-latex)
 5. [Herramientas de conversion](#5-herramientas-de-conversion)
 6. [Pipeline completo: MD a LaTeX a PDF](#6-pipeline-completo-md-a-latex-a-pdf)
-7. [Overleaf: compilacion y flujo de trabajo](#7-overleaf-compilacion-y-flujo-de-trabajo)
-8. [Alternativas a Overleaf](#8-alternativas-a-overleaf)
+7. [Compilacion local con Node.js (sin servicios externos)](#7-compilacion-local-con-nodejs-sin-servicios-externos)
+8. [Compilacion local: otras opciones](#8-compilacion-local-otras-opciones)
 9. [Proyectos open-source de referencia](#9-proyectos-open-source-de-referencia)
 10. [Recomendacion para este proyecto](#10-recomendacion-para-este-proyecto)
+11. [Nota sobre Overleaf (referencia)](#11-nota-sobre-overleaf-referencia)
 
 ---
 
@@ -366,97 +367,220 @@ tectonic resume.tex
 
 ---
 
-## 7. Overleaf: compilacion y flujo de trabajo
+## 7. Compilacion local con Node.js (sin servicios externos)
 
-### Como funciona Overleaf
+> **Objetivo**: Todo el pipeline MD -> LaTeX -> PDF debe correr localmente sin depender de Overleaf ni ningun servicio externo.
 
-Overleaf usa TeX Live en sus servidores de compilacion. Cuando haces click en "Recompile", ejecuta el motor LaTeX (via `latexmk` internamente) multiples veces segun sea necesario para resolver referencias cruzadas y bibliografias.
+### node-latex-compiler (opcion recomendada)
 
-### Motores soportados
+El paquete **[node-latex-compiler](https://libraries.io/npm/node-latex-compiler)** es la unica solucion npm que **bundlea su propio motor LaTeX** (Tectonic). No requiere ninguna instalacion de sistema.
 
-| Compilador | Motor | Caracteristicas |
-|-----------|-------|-----------------|
-| **pdfLaTeX** | pdfTeX | Por defecto. Mejor para documentos estandar con script latino |
-| **XeLaTeX** | XeTeX | UTF-8 nativo, soporte OpenType/TrueType. Para scripts no-latinos y fuentes custom |
-| **LuaLaTeX** | LuaTeX | pdfTeX extendido con Lua. Para accesibilidad PDF/UA-1 |
-| **LaTeX** | TeX clasico | Formato DVI (raramente usado hoy) |
+**Caracteristicas**:
+- Auto-descarga el binario de Tectonic para tu plataforma (Linux x64, macOS Intel/ARM, Windows x64)
+- Auto-descarga paquetes LaTeX de CTAN bajo demanda
+- Zero dependencias de sistema
+- API async limpia
 
-### Importar archivos .tex a Overleaf
-
-Tres metodos:
-
-1. **Subir ZIP**: Crear un `.zip` con los archivos `.tex`, `.cls`, `.sty`, imagenes. Ir a New Project > Upload Project. Limite: 7 MB contenido editable, max 2000 archivos.
-2. **Subir archivos individuales**: En un proyecto existente, boton "Upload" para agregar archivos.
-3. **Abrir desde template**: Navegar la galeria de Overleaf y click "Open as Template".
-
-### Integracion Git con Overleaf (clave para el flujo)
-
-**Se puede hacer push de archivos `.tex` a un proyecto Overleaf via Git.** Este es el metodo de integracion mas potente:
-
-1. Abrir proyecto Overleaf > Integrations > Git
-2. Copiar la URL de `git clone`
-3. Clonar localmente, hacer cambios, push de vuelta al remote de Overleaf
-
-**Vincular un repo local existente a Overleaf:**
-
+**Instalacion**:
 ```bash
-# 1. Crear proyecto en blanco en Overleaf (borrar main.tex)
-# 2. Obtener la URL Git del proyecto
-# 3. Agregar como remote
-git remote add overleaf <URL>
-
-# 4. Pull y merge
-git pull overleaf master --allow-unrelated-histories
-
-# 5. Push tu contenido
-git push overleaf master
+pnpm add node-latex-compiler
 ```
 
-### GitHub Sync de Overleaf (feature premium)
+**Uso**:
+```js
+const { compile } = require('node-latex-compiler');
 
-- Vincula un proyecto Overleaf directamente a un repo GitHub
-- Sync es **manual** (no automatico) - click en "Push" o "Pull" en la UI
-- Conflictos de merge se resuelven creando un PR desde la branch `overleaf` en GitHub
-- **Limitacion**: No se puede vincular un proyecto Overleaf existente a un repo GitHub existente
+// Desde archivo .tex:
+const result = await compile({ texFile: 'resume.tex', outputDir: './output' });
 
-### Templates populares en Overleaf
+// Desde string:
+const result = await compile({ tex: '\\documentclass{article}...', outputDir: './output' });
 
-| Template | URL | Compilador | ATS Score |
-|----------|-----|-----------|-----------|
-| Jake's Resume | [Link](https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs) | pdfLaTeX | 98+ |
-| Awesome CV | [Link](https://www.overleaf.com/latex/templates/awesome-cv/dfnvtnhzhhbm) | XeLaTeX | Alto |
-| ModernCV | [Link](https://www.overleaf.com/latex/templates/moderncv-and-cover-letter-template/sttkgjcysttn) | pdfLaTeX+ | Alto |
-| Deedy CV | [Link](https://www.overleaf.com/latex/templates/deedy-cv/bjryvfsjdyxz) | XeTeX | Bajo (2 cols) |
-| ATS Friendly Technical | [Link](https://www.overleaf.com/latex/templates/ats-friendly-technical-resume/yrhtcnjyzgsf) | pdfLaTeX | Muy alto |
+// Obtener PDF como Buffer (en memoria):
+const result = await compile({ texFile: 'resume.tex', returnBuffer: true });
+// result.pdfBuffer contiene los bytes del PDF
+```
 
-Galeria completa: [overleaf.com/gallery/tagged/cv](https://www.overleaf.com/gallery/tagged/cv)
+**Retorna**: `CompileResult` con `status` (`'success'`/`'failed'`), `pdfPath`, `pdfBuffer`, `exitCode`, `stdout`, `stderr`.
+
+**Footprint**: ~39 MB binario Tectonic + ~40-74 MB cache de paquetes (vs 2-4 GB de TeX Live completo).
+
+**Modo offline**: Despues de la primera compilacion (que descarga paquetes), funciona completamente offline con el flag `--only-cached` de Tectonic.
+
+### Otros paquetes Node.js para compilacion LaTeX
+
+| Paquete | Bundlea motor? | Requiere LaTeX del sistema? | Output |
+|---------|:--------------:|:---------------------------:|--------|
+| **node-latex-compiler** | **Si (Tectonic)** | **No** | PDF archivo o buffer |
+| [node-latex](https://www.npmjs.com/package/node-latex) | No | Si | PDF stream |
+| [node-pdflatex](https://www.npmjs.com/package/node-pdflatex) | No | Si | PDF buffer |
+
+`node-latex` y `node-pdflatex` son wrappers que ejecutan `pdflatex`/`xelatex` del sistema como subprocess. Requieren tener TeX Live o similar instalado.
+
+### latex.js (descartado)
+
+[LaTeX.js](https://latex.js.org/) convierte LaTeX a **HTML, no a PDF**. No es un compilador LaTeX real. Ademas:
+- Solo soporta `article`, `report`, `book` como document classes
+- Solo 5 paquetes reimplementados en JS (`latexsym`, `textgreek`, `stix`, `gensymb`, `textcomp`)
+- **No puede manejar templates CV** (moderncv, awesome-cv, etc.) - requeriria reimplementar todas sus dependencias en JavaScript
+- No soporta `\newcommand` ni macros definidas por el usuario
+
+**Veredicto**: Inaplicable para generacion de CVs.
+
+### Pipeline completo en Node.js (sin servicios externos)
+
+```
+resume.md  ──(pandoc / pandocjs)──>  resume.tex  ──(node-latex-compiler)──>  resume.pdf
+    │                                                                              │
+    │           Todo local, zero servicios externos                                │
+    │                                                                              │
+    └──(pandoc)──>  resume.docx  (backup para ATS legacy)                          │
+```
+
+**Ejemplo de script Node.js completo**:
+
+```js
+const { execSync } = require('child_process');
+const { compile } = require('node-latex-compiler');
+
+// Paso 1: MD a LaTeX via pandoc
+execSync(`pandoc resume.md \
+  -f markdown+yaml_metadata_block \
+  --template templates/cv-template.tex \
+  -o resume.tex`);
+
+// Paso 2: LaTeX a PDF via Tectonic (bundleado)
+const result = await compile({
+  texFile: 'resume.tex',
+  outputDir: '.',
+});
+
+if (result.status === 'success') {
+  console.log('PDF generado:', result.pdfPath);
+}
+
+// Opcional: generar DOCX para ATS
+execSync('pandoc resume.md -o resume.docx');
+```
+
+**Para integracion npm (package.json)**:
+```json
+{
+  "scripts": {
+    "resume:tex": "pandoc resume.md -f markdown+yaml_metadata_block --template templates/cv-template.tex -o resume.tex",
+    "resume:pdf": "node scripts/compile-latex.js",
+    "resume:docx": "pandoc resume.md -o resume.docx"
+  }
+}
+```
 
 ---
 
-## 8. Alternativas a Overleaf
+## 8. Compilacion local: otras opciones
 
-### Instalaciones locales
+### Tectonic directo (sin Node.js wrapper)
 
-| Distribucion | Plataforma | Notas |
-|-------------|-----------|-------|
-| **TeX Live** | Cross-platform | Completo, releases anuales, incluye `latexmk` y `tlmgr` |
-| **MiKTeX** | Windows-first | Instalacion on-demand de paquetes, footprint inicial menor |
-| **MacTeX** | macOS | TeX Live reempaquetado para macOS con GUI nativas |
-| **TinyTeX** | Cross-platform | Subconjunto minimo de TeX Live, ideal para CI/CD |
+Si prefieres usar Tectonic directamente desde la terminal en vez del wrapper npm:
+
+```bash
+# Instalar
+cargo install tectonic    # via Rust
+brew install tectonic     # via Homebrew (macOS)
+conda install -c conda-forge tectonic  # via Conda
+
+# Compilar
+tectonic resume.tex
+
+# Modo offline (despues de primera compilacion)
+tectonic --only-cached resume.tex
+```
+
+- Binario unico (~39 MB)
+- Basado en XeTeX: soporte nativo UTF-8 y OpenType
+- Cache en `~/.cache/Tectonic/` (Linux), `~/Library/Caches/Tectonic/` (macOS)
+
+### Pandoc + Tectonic como pdf-engine
+
+Pandoc puede usar Tectonic directamente como motor PDF, sin paso intermedio `.tex`:
+
+```bash
+pandoc resume.md -o resume.pdf --pdf-engine=tectonic
+```
+
+Esto hace MD -> PDF en un solo comando, usando Tectonic internamente.
+
+### Docker (para entornos CI/CD o aislamiento)
+
+| Imagen | Base | Tamano | Notas |
+|--------|------|--------|-------|
+| [`kjarosh/latex:2025.1-minimal`](https://github.com/kjarosh/latex-docker) | Alpine | **~40 MB** | Minimo TeX Live; agregar paquetes con `tlmgr` |
+| `kjarosh/latex:2025.1-small` | Alpine | ~180 MB | Esquema small |
+| [`texlive/texlive`](https://hub.docker.com/r/texlive/texlive) | Debian | ~2 GB | TeX Live completo |
+| [`pandoc/extra`](https://hub.docker.com/r/pandoc/extra) | Alpine | Grande | Pandoc + TeX Live + Tectonic |
+
+```bash
+# Compilar con Docker (sin instalar nada en el sistema)
+docker run --rm -v $(pwd):/data -w /data kjarosh/latex:2025.1-small pdflatex resume.tex
+```
+
+**Desde Node.js con Docker**:
+```js
+const { spawn } = require('child_process');
+const proc = spawn('docker', [
+  'run', '--rm',
+  '-v', `${process.cwd()}:/data`,
+  '-w', '/data',
+  'kjarosh/latex:2025.1-small',
+  'pdflatex', 'resume.tex'
+]);
+```
+
+O con el paquete [`dockerode`](https://github.com/apocas/dockerode) para control programatico completo.
+
+### Distribuciones LaTeX locales
+
+| Distribucion | Plataforma | Tamano | Notas |
+|-------------|-----------|--------|-------|
+| **TinyTeX** | Cross-platform | ~100-200 MB | Subconjunto minimo de TeX Live, instala paquetes bajo demanda |
+| **TeX Live** | Cross-platform | 2-4 GB | Completo, releases anuales, incluye `latexmk` y `tlmgr` |
+| **MiKTeX** | Windows-first | Variable | Instalacion on-demand, footprint inicial menor |
+| **MacTeX** | macOS | ~4 GB | TeX Live reempaquetado con GUI nativas |
+
+**TinyTeX** (instalacion sin privilegios admin):
+```bash
+wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+
+# Instalar paquetes necesarios para CVs
+tlmgr install moderncv fontawesome5 etoolbox xcolor hyperref geometry
+```
+
+**Limitacion**: TinyTeX no auto-instala paquetes faltantes fuera de R. Hay que usar `tlmgr install` manualmente.
 
 ### latexmk (herramienta de build)
 
-`latexmk` es la herramienta estandar de automatizacion de builds para LaTeX (Overleaf lo usa internamente):
+`latexmk` es la herramienta estandar de automatizacion de builds para LaTeX:
 
 ```bash
 # Compilar a PDF
 latexmk -pdf resume.tex
+
+# Con XeLaTeX
+latexmk -xelatex resume.tex
 
 # Watch mode con preview continuo
 latexmk -pvc -pdf resume.tex
 
 # Limpiar archivos auxiliares
 latexmk -c resume.tex
+```
+
+### GitHub Actions (para CI/CD)
+
+```yaml
+- uses: xu-cheng/latex-action@v4
+  with:
+    root_file: resume.tex
+    # compiler: xelatex  # opcional
 ```
 
 ---
@@ -486,45 +610,79 @@ latexmk -c resume.tex
 
 ## 10. Recomendacion para este proyecto
 
+### Principio: todo local, sin servicios externos
+
+El pipeline completo debe correr en la maquina del usuario sin llamar a Overleaf, APIs externas, ni servicios en la nube.
+
 ### Flujo propuesto
 
 ```
-resume.md  ──(pandoc + template)──>  resume.tex  ──(compilacion)──>  resume.pdf
-                                         │
-                                         ├──> Compilar localmente (tectonic / latexmk)
-                                         ├──> Push a Overleaf via Git para tweaks finales
-                                         └──> Tambien generar .docx via pandoc (para ATS)
+resume.md  ──(pandoc + template)──>  resume.tex  ──(node-latex-compiler)──>  resume.pdf
+                                                                    │
+                                Todo corre localmente               │
+                                                                    │
+resume.md  ──(pandoc)──>  resume.docx  (backup para ATS legacy)    │
 ```
 
-### Opcion A: Compilacion local (automatizada)
+### Implementacion recomendada
 
-1. Escribir/mantener CV en `resume.md`
-2. Convertir a `.tex` via pandoc con template LaTeX personalizado
-3. Compilar localmente con `tectonic resume.tex` (rapido, autocontenido) o `latexmk -pdf resume.tex`
-4. Automatizar en CI con `xu-cheng/latex-action@v4`
+**Paso 1**: Instalar dependencias
 
-### Opcion B: Overleaf via Git (semi-automatizada)
+```bash
+# pandoc (para conversion MD -> LaTeX)
+brew install pandoc        # macOS
+sudo apt install pandoc    # Linux
 
-1. Escribir/mantener CV en `resume.md`
-2. Convertir a `.tex` via pandoc
-3. Push del `.tex` a un proyecto Overleaf via Git (`git push overleaf master`)
-4. Abrir Overleaf en el navegador para review final y compilacion
+# node-latex-compiler (bundlea Tectonic, compila LaTeX -> PDF)
+pnpm add node-latex-compiler
+```
 
-### Opcion C: Hibrida (recomendada)
+**Paso 2**: Crear template LaTeX en `templates/cv-template.tex` basado en Jake's Resume o moderncv
 
-1. Escribir/mantener CV en `resume.md`
-2. Agregar script npm que convierte MD a LaTeX via pandoc:
-   ```bash
-   pandoc resume.md -f markdown+yaml_metadata_block \
-     --template templates/cv-template.tex \
-     --pdf-engine=xelatex \
-     -o resume.tex
-   ```
-3. El usuario puede:
-   - Compilar localmente con `tectonic` o Docker
-   - Subir el `.tex` a Overleaf para tweaks y compilacion visual
-   - Generar `.docx` para envio ATS: `pandoc resume.md -o resume.docx`
-4. Agregar GitHub Action para compilacion automatica en push
+**Paso 3**: Agregar scripts npm
+
+```json
+{
+  "scripts": {
+    "resume:tex": "pandoc resume.md -f markdown+yaml_metadata_block --template templates/cv-template.tex -o resume.tex",
+    "resume:pdf": "node scripts/compile-latex.js",
+    "resume:docx": "pandoc resume.md -o resume.docx",
+    "resume:all": "pnpm run resume:tex && pnpm run resume:pdf"
+  }
+}
+```
+
+**Paso 4**: Script de compilacion (`scripts/compile-latex.js`)
+
+```js
+const { compile } = require('node-latex-compiler');
+
+async function main() {
+  const result = await compile({
+    texFile: 'resume.tex',
+    outputDir: '.',
+  });
+
+  if (result.status === 'success') {
+    console.log('PDF generado:', result.pdfPath);
+  } else {
+    console.error('Error:', result.stderr);
+    process.exit(1);
+  }
+}
+
+main();
+```
+
+### Alternativa simplificada (un solo comando)
+
+Si no se necesita el archivo `.tex` intermedio:
+
+```bash
+pandoc resume.md -o resume.pdf --pdf-engine=tectonic
+```
+
+Esto hace MD -> PDF directamente. Requiere tener `tectonic` instalado en el sistema.
 
 ### Template recomendado
 
@@ -539,9 +697,41 @@ Para necesidades internacionales/EU, considerar **moderncv** con estilo `banking
 
 ### Dependencias nuevas necesarias
 
-- **pandoc**: Para la conversion MD a LaTeX (`brew install pandoc` / `apt install pandoc`)
-- **tectonic** (opcional): Para compilacion local sin TeX Live completo (`cargo install tectonic`)
-- **pandocjs** (opcional): Para integracion Node.js sin pandoc pre-instalado
+| Dependencia | Proposito | Instalacion |
+|-------------|-----------|-------------|
+| **pandoc** | Conversion MD a LaTeX y DOCX | `brew install pandoc` / `apt install pandoc` |
+| **node-latex-compiler** | Compilacion LaTeX a PDF (bundlea Tectonic) | `pnpm add node-latex-compiler` |
+
+**Opcional** (si se prefiere no instalar pandoc del sistema):
+- **pandocjs**: Wrapper npm que auto-descarga el binario de pandoc (`pnpm add pandocjs`)
+
+### Comparativa con el flujo actual
+
+| Aspecto | Flujo actual (md-to-pdf) | Flujo nuevo (MD -> LaTeX -> PDF) |
+|---------|--------------------------|----------------------------------|
+| Motor de renderizado | Puppeteer/Chromium | Tectonic (basado en XeTeX) |
+| Formato de salida | PDF via HTML | PDF via LaTeX |
+| Calidad tipografica | Web (CSS) | Profesional (LaTeX) |
+| Compatibilidad ATS | Variable | Alta (98+ con Jake's Resume) |
+| Templates disponibles | CSS custom | Ecosistema completo de CTAN |
+| Tamano de dependencias | ~300+ MB (Chromium) | ~80-120 MB (Tectonic + cache) |
+| Archivo intermedio | HTML (interno) | `.tex` (exportable, editable) |
+| Portabilidad del .tex | N/A | El usuario puede llevar el .tex a cualquier editor LaTeX |
+
+---
+
+## 11. Nota sobre Overleaf (referencia)
+
+> Esta seccion es solo informativa. El flujo recomendado es 100% local.
+
+Si algun usuario quisiera llevar manualmente el archivo `.tex` generado a Overleaf:
+
+- **Importar**: Subir el `.zip` con archivos `.tex` + `.cls` + `.sty` a New Project > Upload Project
+- **Git integration**: Overleaf expone un remote Git por proyecto. Se puede hacer `git push overleaf master`
+- **GitHub Sync** (premium): Vincula un proyecto Overleaf a un repo GitHub con sync manual
+- **Templates en Overleaf**: [overleaf.com/gallery/tagged/cv](https://www.overleaf.com/gallery/tagged/cv)
+
+Esto es opcional y no forma parte del pipeline automatizado del proyecto.
 
 ---
 
@@ -569,15 +759,20 @@ Para necesidades internacionales/EU, considerar **moderncv** con estilo `banking
 - [GitHub - mszep/pandoc_resume](https://mszep.github.io/pandoc_resume/)
 - [How I manage my CV with Markdown, Pandoc, Python, and LaTeX](https://lucaf.eu/2022/08/18/cv-markdown-pandoc-python-latex.html)
 
-### Overleaf
-- [Overleaf - Choosing a LaTeX Compiler](https://www.overleaf.com/learn/latex/Choosing_a_LaTeX_Compiler)
-- [Overleaf - Git Integration](https://docs.overleaf.com/integrations-and-add-ons/git-integration-and-github-synchronization/git-integration)
-- [Overleaf - GitHub Synchronization](https://docs.overleaf.com/integrations-and-add-ons/git-integration-and-github-synchronization/github-synchronization)
-- [Overleaf - CV Gallery](https://www.overleaf.com/gallery/tagged/cv)
-- [Overleaf API](https://www.overleaf.com/devs)
-
-### Compilacion LaTeX
-- [Tectonic](https://github.com/tectonic-typesetting/tectonic)
-- [xu-cheng/latex-action](https://github.com/marketplace/actions/github-action-for-latex)
-- [texlive/texlive Docker](https://hub.docker.com/r/texlive/texlive)
+### Compilacion local y Node.js
+- [node-latex-compiler](https://libraries.io/npm/node-latex-compiler) - npm package que bundlea Tectonic
+- [node-latex](https://github.com/saadq/node-latex) - wrapper de pdflatex para Node.js
+- [node-pdflatex](https://www.npmjs.com/package/node-pdflatex) - wrapper TypeScript de pdflatex
+- [Tectonic](https://github.com/tectonic-typesetting/tectonic) - motor LaTeX autocontenido en Rust
+- [LaTeX.js](https://latex.js.org/) - traductor LaTeX a HTML (no a PDF, descartado)
+- [kjarosh/latex-docker](https://github.com/kjarosh/latex-docker) - imagenes Docker Alpine minimas para LaTeX
+- [TinyTeX](https://yihui.org/tinytex/) - distribucion minima de TeX Live
+- [xu-cheng/latex-action](https://github.com/marketplace/actions/github-action-for-latex) - GitHub Action para LaTeX
+- [dockerode](https://github.com/apocas/dockerode) - cliente Docker API para Node.js
+- [pandocjs](https://www.npmjs.com/package/pandocjs) - wrapper npm con auto-descarga de pandoc
 - [CTAN - latexmk](https://ctan.org/pkg/latexmk)
+- [texlive/texlive Docker](https://hub.docker.com/r/texlive/texlive)
+
+### Overleaf (referencia)
+- [Overleaf - Git Integration](https://docs.overleaf.com/integrations-and-add-ons/git-integration-and-github-synchronization/git-integration)
+- [Overleaf - CV Gallery](https://www.overleaf.com/gallery/tagged/cv)
