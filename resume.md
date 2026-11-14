@@ -14,15 +14,15 @@ Nationality: Paraguay/Spain
 
 ## Profile
 
-Senior software engineer with over 10 years of experience in web and mobile development, specializing in building scalable applications using React, React Native, Next.js, and Flutter. Proven track record leading full project cycles — from architecture definition to deployment — in both startup and enterprise environments.
+Senior software engineer with over 12 years of experience in web and mobile development, specializing in building scalable applications using React, React Native, Next.js, and Flutter. Proven track record leading full project cycles — from architecture definition to deployment — in both startup and enterprise environments.
 
 Strong backend knowledge with Django and Node.js, and skilled in deploying cloud-based infrastructures using GCP, Docker, and Kubernetes. Known for mentoring junior developers, documenting projects thoroughly, and delivering high-quality solutions aligned with business goals.
 
-Currently leading the mobile app development of a global loyalty platform for Hitachi, recognized for high autonomy, ownership, and problem-solving capabilities.
+Currently Tech Lead at AIMA, leading the team that ships a cross-platform AI caregiver app — a real-time conversational MetaHuman avatar — and driving the company's agentic architecture and development workflows.
 
 ## Technologies
 
-Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kubernetes, Docker, Digital Ocean, Git, Github, Jira.
+Django, Nodejs, NextJS, React, React Native, Flutter, Kotlin, Swift, C++, TypeScript, Unreal Engine, Android, iOS, GCP, Kubernetes, Docker, Firebase, WebSocket, ONNX, pgvector, Claude Code, Digital Ocean, Git, Github, Linear, Jira.
 
 ## Skills
 
@@ -36,9 +36,24 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 
 ## Experience
 
+### Tech Lead – Cross-Platform App (Senior Frontend & Mobile / AI Integration Engineer)
+
+#### AIMA (Beyond AI) | Feb 2026 – Present
+
+- **Tech Lead** of the team that builds and ships AIMA's cross-platform application, an AI caregiver companion delivered as a MetaHuman avatar on Android tablets, working across Flutter/Dart, Kotlin and Swift (deep native device integration), C++ (Unreal Engine integration) and TypeScript/Node.js (backend integration).
+- **Core SDK Architect** of sora-flutter-core, the real-time conversational AI SDK (Android AAR) that drives the avatar with speech-to-speech interaction.
+- Achieved near-instant, fluid conversation by integrating and latency-tuning Deepgram (ASR), OpenAI GPT (LLM) and ElevenLabs (TTS) over streaming WebSockets, with latency tracking across all three providers.
+- Designed a stable interruption (barge-in) system through 10+ iterations — from RMS detection to on-device Silero VAD, with hard cancel, ambient noise calibration and client-side ASR endpointing with multi-layered safety guards.
+- Built the Flutter ↔ Unreal Engine (C++) bridge for MetaHuman control: lipsync viseme synchronization, real-time captions and FSM state management.
+- Integrated on-device ONNX wake word detection ("Hey AiMA", "Hola AiMA") in English, Spanish and Catalan, and hardened the Android audio pipeline with AEC, noise suppression and automatic gain control.
+- **Defined and led Jurojin App Platform**, the agentic re-architecture of the caregiver management system: a supervisor-agent design with investigation sub-agents, tools and skills, an entity knowledge graph with pgvector memory, and multi-layered safety on Firebase/Node.js.
+- **Designed the company's development and release workflows** — roadmap coordination between humans and AI agents, branching, release process and team organization.
+- Drove agentic development automation: shared Claude Code skills and autonomous agent pipelines that take a GitHub issue through plan, test-first implementation, review and testing to a mergeable PR.
+- Involved in key product decisions to take the product to market; authored RFCs for ASR provider abstraction, lipsync architecture and barge-in design.
+
 ### Senior Software Consultant
 
-#### ROI UP (via Oxigent Consulting) | Sep 2024 – Present
+#### ROI UP (via Oxigent Consulting) | Sep 2024 – Jan 2026
 
 - **Senior Developer** leading a global loyalty mobile application for Hitachi using React Native with Expo framework, functioning as the technical reference and primary decision-maker for project direction and technical roadmap.
 - **Project ownership**: Collaborate with PM to define project milestones, coordinate team progress, and serve as the go-to person for project status updates across all stakeholders.

@@ -14,15 +14,15 @@ Nacionalidad: Paraguay/España
 
 ## Perfil
 
-Ingeniero de software senior con más de 10 años de experiencia en desarrollo web y móvil, especializado en la construcción de aplicaciones escalables usando React, React Native, Next.js y Flutter. Historial comprobado liderando ciclos completos de proyectos — desde la definición de arquitectura hasta el despliegue — en entornos tanto de startups como empresariales.
+Ingeniero de software senior con más de 12 años de experiencia en desarrollo web y móvil, especializado en la construcción de aplicaciones escalables usando React, React Native, Next.js y Flutter. Historial comprobado liderando ciclos completos de proyectos — desde la definición de arquitectura hasta el despliegue — en entornos tanto de startups como empresariales.
 
 Sólidos conocimientos de backend con Django y Node.js, y habilidades en el despliegue de infraestructuras basadas en la nube usando GCP, Docker y Kubernetes. Reconocido por mentorizar desarrolladores junior, documentar proyectos exhaustivamente y entregar soluciones de alta calidad alineadas con los objetivos de negocio.
 
-Actualmente liderando el desarrollo de aplicación móvil de una plataforma de fidelización global para Hitachi, reconocido por alta autonomía, propiedad y capacidades de resolución de problemas.
+Actualmente Tech Lead en AIMA, liderando el equipo que despliega una app multiplataforma de cuidado con IA — un avatar MetaHuman conversacional en tiempo real — e impulsando la arquitectura agéntica y los flujos de desarrollo de la empresa.
 
 ## Tecnologías
 
-Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kubernetes, Docker, Digital Ocean, Git, Github, Jira.
+Django, Nodejs, NextJS, React, React Native, Flutter, Kotlin, Swift, C++, TypeScript, Unreal Engine, Android, iOS, GCP, Kubernetes, Docker, Firebase, WebSocket, ONNX, pgvector, Claude Code, Digital Ocean, Git, Github, Linear, Jira.
 
 ## Habilidades
 
@@ -36,9 +36,24 @@ Django, Nodejs, NextJS, React, React Native, Flutter, Android, iOS, GCP, Kuberne
 
 ## Experiencia
 
+### Tech Lead – App Multiplataforma (Ingeniero Senior Frontend & Mobile / Integración de IA)
+
+#### AIMA (Beyond AI) | Feb 2026 – Presente
+
+- **Tech Lead** del equipo que construye y despliega la aplicación multiplataforma de AIMA, un agente cuidador con IA representado por un avatar MetaHuman en tablets Android, trabajando con Flutter/Dart, Kotlin y Swift (integración nativa profunda con el dispositivo), C++ (integración con Unreal Engine) y TypeScript/Node.js (integración con el backend).
+- **Arquitecto del SDK Core** sora-flutter-core, el SDK de IA conversacional en tiempo real (AAR de Android) que controla el avatar con interacción voz a voz.
+- Logré una conversación fluida y casi instantánea integrando y optimizando la latencia de Deepgram (ASR), OpenAI GPT (LLM) y ElevenLabs (TTS) mediante WebSockets en streaming, con medición de latencia en los tres proveedores.
+- Diseñé un sistema de interrupción (barge-in) estable a lo largo de más de 10 iteraciones — desde detección por RMS hasta Silero VAD on-device, con cancelación inmediata, calibración de ruido ambiente y endpointing de ASR en el cliente con guardas de seguridad multicapa.
+- Construí el puente Flutter ↔ Unreal Engine (C++) para el control del MetaHuman: sincronización de visemas de lipsync, subtítulos en tiempo real y gestión de estados con FSM.
+- Integré detección de palabra de activación con ONNX on-device ("Hey AiMA", "Hola AiMA") en inglés, español y catalán, y robustecí el pipeline de audio de Android con AEC, supresión de ruido y control automático de ganancia.
+- **Definí y lideré Jurojin App Platform**, la reestructuración agéntica del sistema de gestión de cuidadores: arquitectura supervisor-agente con sub-agentes de investigación, tools y skills, grafo de conocimiento de entidades con memoria en pgvector y seguridad multicapa sobre Firebase/Node.js.
+- **Diseñé los flujos de desarrollo y releases de la empresa** — coordinación del roadmap entre personas y agentes de IA, estrategia de ramas, proceso de release y organización del trabajo del equipo.
+- Impulsé la automatización del desarrollo agéntico: skills compartidas de Claude Code y pipelines de agentes autónomos que llevan un issue de GitHub por plan, implementación test-first, revisión y testing hasta una PR lista para mergear.
+- Participé en decisiones clave de producto para sacarlo adelante; redacté RFCs sobre la abstracción de proveedores ASR, la arquitectura de lipsync y el diseño del barge-in.
+
 ### Consultor de Software Senior
 
-#### ROI UP (vía Oxigent Consulting) | Sep 2024 – Presente
+#### ROI UP (vía Oxigent Consulting) | Sep 2024 – Ene 2026
 
 - **Desarrollador Senior** liderando una aplicación móvil de fidelización global para Hitachi usando React Native con framework Expo, funcionando como referencia técnica y principal tomador de decisiones para la dirección del proyecto y hoja de ruta técnica.
 - **Propiedad del proyecto**: Colaborar con PM para definir hitos del proyecto, coordinar progreso del equipo y servir como persona de referencia para actualizaciones de estado del proyecto entre todos los stakeholders.
